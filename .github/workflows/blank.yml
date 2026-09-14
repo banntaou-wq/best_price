@@ -2,9 +2,9 @@ name: Scraper Seconde Main & IA
 
 on:
   schedule:
-    # S'exécute toutes les 10 minutes (0, 10, 20, 30, 40, 50 min)
+    # S'exécute toutes les 10 minutes
     - cron: '*/10 * * * *'
-  workflow_dispatch: # Permet de lancer le workflow manuellement depuis GitHub
+  workflow_dispatch: # Permet le lancement manuel
 
 jobs:
   run-bot:
@@ -23,7 +23,7 @@ jobs:
       - name: Installer les dépendances
         run: |
           python -m pip install --upgrade pip
-          pip install google-genai requests scrapling
+          pip install -r requirements.txt
 
       - name: Restaurer la base de données SQLite
         uses: actions/cache@v4
@@ -41,7 +41,7 @@ jobs:
         run: |
           python main.py
 
-      - name: Sauvegarder la base de données SQLite mis à jour
+      - name: Sauvegarder la base de données SQLite
         uses: actions/cache@v4
         with:
           path: vu_articles.db
